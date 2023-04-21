@@ -1,0 +1,51 @@
+<h1 class="text-center mt-5">Meme Generator</h1>
+<div class="app mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-body p-4">
+            <form>
+              <div class="form-group">
+                <label class="mb-2 fw-bold">Upload an image</label>
+                <input type="file" class="form-control" accept="image/*" (change)="onImageUpload($event)">
+              </div>
+
+              <div class="d-flex justify-content-around my-5">
+                <div class="form-group" *ngIf="show">
+                  <label class="mb-2 fw-bold">Text color</label>
+                  <color-chrome (onChangeComplete)="onTextColorChange($event)"></color-chrome>
+                </div>
+                <div class="form-group" *ngIf="show">
+                  <label class="mb-2 fw-bold">Background color</label>
+                  <color-chrome (onChangeComplete)="onBgColorChange($event)"></color-chrome>
+                </div>
+              </div>
+
+              <div class="d-flex flex-column" *ngIf="show">
+                <label class="mb-2 fw-bold">Top text</label>
+                <quill-editor placeholder="Enter Text" [modules]="quillConfig"
+                  (onContentChanged)="onTopTextChange($event)">
+                </quill-editor>
+              </div>
+
+              <div class="d-flex flex-column my-3" *ngIf="show">
+                <label class="mb-2 fw-bold">Bottom text</label>
+                <quill-editor placeholder="Enter Text" [modules]="quillConfig"
+                  (onContentChanged)="onBottomTextChange($event)">
+                </quill-editor>
+              </div>
+
+              <button *ngIf="show" class="btn btn-dark w-100 py-3 mt-5 mb-4" (click)="download()">Download</button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <canvas class="shadow rounded border" #memeCanvas width="700" height="800"></canvas>
+      </div>
+
+    </div>
+  </div>
+</div>
